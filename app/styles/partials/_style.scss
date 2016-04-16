@@ -3,6 +3,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+body {
+    min-height: 100vh;
+}
+
 .wrapper__background {
     width: 100%;
 }
