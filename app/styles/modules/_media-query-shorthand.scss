@@ -1,0 +1,47 @@
+@mixin min-width-query($size) {
+   @media screen and (min-width: $size) { @content; }
+}
+
+/**
+ * Media query shorthand.  Usage:
+ *
+ * @include mq([condition1], [condition2], [condition3], [...]) {
+ *   // the stuff that should happen under the given conditions.
+ * }
+ *
+ * Each condition should be one of:
+ * - `sm`, `md`, `lg`: translates to `@media screen and (min-width: size) { ... }`, where
+ *   `size` is the Bootstrap-like variable, e.g. `$screen-sm-min`.  Useful
+ *   when you're being "mobile-first".
+ *
+ * - `print`: translates to `@media print`
+ *
+ * - `too-sm`: translates to `@media screen and (max-width: $screen-sm-min - 1) { ... }`.
+ *   Useful when you're being *not* "mobile-first".
+ *
+ * - an arbitrary media query: just does `@media (condition) { ... }`
+ *
+ */
+
+@mixin mq($conditions...) {
+  @each $condition in $conditions {
+    @if $condition == sm {
+      @include min-width-query($screen-sm-min) { @content; }
+    }
+    @else if $condition == md {
+      @include min-width-query(40rem) { @content; }
+    }
+    @else if $condition == lg {
+      @include min-width-query(60rem) { @content; }
+    }
+    @else if $condition == too-sm {
+      @media screen and (max-width: ($screen-sm-min - 1)) { @content; }
+    }
+    @else if $condition == print {
+      @media print { @content; }
+    }
+    @else {
+      @media ($condition) { @content; }
+    }
+  }
+}
