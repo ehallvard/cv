@@ -1,5 +1,7 @@
 @mixin min-width-query($size) {
-   @media screen and (min-width: $size) { @content; }
+  @media screen and (min-width: $size) {
+    @content;
+  }
 }
 
 /**
@@ -22,26 +24,32 @@
  * - an arbitrary media query: just does `@media (condition) { ... }`
  *
  */
-
 @mixin mq($conditions...) {
   @each $condition in $conditions {
     @if $condition == sm {
-      @include min-width-query($screen-sm-min) { @content; }
-    }
-    @else if $condition == md {
-      @include min-width-query(40rem) { @content; }
-    }
-    @else if $condition == lg {
-      @include min-width-query(60rem) { @content; }
-    }
-    @else if $condition == too-sm {
-      @media screen and (max-width: ($screen-sm-min - 1)) { @content; }
-    }
-    @else if $condition == print {
-      @media print { @content; }
-    }
-    @else {
-      @media ($condition) { @content; }
+      @include min-width-query($screen-sm-min){
+        @content;
+      }
+    } @else if $condition == md {
+      @include min-width-query(40rem){
+        @content;
+      }
+    } @else if $condition == lg {
+      @include min-width-query(60rem){
+        @content;
+      }
+    } @else if $condition == too-sm {
+      @media screen and (max-width: ($screen-sm-min - 1)) {
+        @content;
+      }
+    } @else if $condition == print {
+      @media print {
+        @content;
+      }
+    } @else {
+      @media ($condition) {
+        @content;
+      }
     }
   }
 }

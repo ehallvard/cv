@@ -165,3 +165,9 @@ gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
 gulp.task('default', ['clean'], () => {
   gulp.start('build');
 });
+
+gulp.task('cssfmt', function () {
+  return gulp.src('app/styles/**/*.scss')
+    .pipe($.cssfmt())
+    .pipe(gulp.dest('app/styles'));
+});
